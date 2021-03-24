@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Snowball : MonoBehaviour
+{
+    public Rigidbody snowball;
+
+    public float forwardForce = 100f;
+    private float startPos;
+
+//Starts the ball rolling everytime its reset as well as maintaining a constant velocity.
+    void FixedUpdate()
+    {
+//You might need to swap the 0's and forces around depending on which direction you want the ball to roll
+        snowball.AddForce(forwardForce * Time.deltaTime, 0, 0);
+        
+    }
+
+//Create a collider with the tag "Reset" at the end of the hallway so the object will be sent back to its start.
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Reset")
+        {
+//Resets ball velocity so it doesn't infinitely speed up
+            snowball.velocity = Vector3.zero;
+//Teleports the ball to where ever it is you want it to start just figure out the cordinates
+            this.transform.position = new Vector3(-12,4,12);
+            
+        }
+    }
+}
